@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wiki-app-uploadsini
+  labels:
+    app: wiki
+data:
+  uploads.ini: |
+    upload_max_filesize = 20M
+    post_max_size = 20M
+    max_execution_time = 7200
+    max_file_uploads = 100

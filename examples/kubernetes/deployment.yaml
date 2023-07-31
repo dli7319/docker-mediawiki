@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wiki-app
+  labels:
+    app: wiki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pod-label: wiki-app-pod
+  template:
+    metadata:
+      labels:
+        pod-label: wiki-app-pod
+        wiki-db-access: "true"
+        wiki-memcached-access: "true"
+    spec:
+      containers:
+        - name: wiki
+          image: ghcr.io/dli7319/docker-mediawiki:main
+          ports:
+            - name: http
+              containerPort: 80
+          env:
+            - name: UPLOAD_LIMIT
+              value: 64M
+          volumeMounts:
+            - name: wiki-app-storage
+              mountPath: /var/www/html/images/
+              subPath: images
+            - name: wiki-app-storage
+              mountPath: /var/www/html/LocalSettings.php
+              subPath: LocalSettings.php
+              readOnly: true
+            - name: uploadsini
+              mountPath: /usr/local/etc/php/conf.d/uploads.ini
+              subPath: uploads.ini
+              readOnly: true
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "1"
+          livenessProbe:
+            httpGet:
+              path: /api.php?action=query&meta=siteinfo&format=none
+              port: http
+            initialDelaySeconds: 120
+            periodSeconds: 10
+      priorityClassName: prod
+      imagePullSecrets:
+        - name: regcred
+      volumes:
+        - name: wiki-app-storage
+          persistentVolumeClaim:
+            claimName: wiki-app-pvc
+        - name: uploadsini
+          configMap:
+            name: wiki-app-uploadsini
