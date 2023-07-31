@@ -1,2 +1,2 @@
 # docker-mediawiki
-Container image for wiki.davidl.me
+Container image for https://wiki.davidl.me
