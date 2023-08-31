@@ -1,8 +1,8 @@
-FROM public.ecr.aws/docker/library/mediawiki:1.39
+FROM public.ecr.aws/docker/library/mediawiki:1.40
 
 RUN apt update && apt install -y libzip-dev zip unzip && rm -rf /var/lib/apt/lists/* && docker-php-ext-install zip
 
-ENV MW_VER=REL1_39
+ENV MW_VER=REL1_40
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
