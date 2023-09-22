@@ -1,5 +1,6 @@
 FROM public.ecr.aws/docker/library/mediawiki:1.40
 
+RUN a2enmod remoteip
 RUN apt update && apt install -y libzip-dev zip unzip && rm -rf /var/lib/apt/lists/* && docker-php-ext-install zip
 
 ENV MW_VER=REL1_40
@@ -34,5 +35,3 @@ RUN git clone --depth 1 -b ${MW_VER} https://github.com/wikimedia/mediawiki-exte
 # Styles
 # RUN git clone --depth 1 -b ${MW_VER} https://github.com/wikimedia/mediawiki-skins-MinervaNeue.git \
 #   /var/www/html/skins/MinervaNeue
-
-RUN a2enmod remoteip
