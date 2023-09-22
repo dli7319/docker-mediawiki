@@ -34,3 +34,5 @@ RUN git clone --depth 1 -b ${MW_VER} https://github.com/wikimedia/mediawiki-exte
 # Styles
 # RUN git clone --depth 1 -b ${MW_VER} https://github.com/wikimedia/mediawiki-skins-MinervaNeue.git \
 #   /var/www/html/skins/MinervaNeue
+
+RUN a2enmod remoteip
