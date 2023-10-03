@@ -48,9 +48,6 @@ spec:
               port: http
             initialDelaySeconds: 120
             periodSeconds: 10
-      priorityClassName: prod
-      imagePullSecrets:
-        - name: regcred
       volumes:
         - name: wiki-app-storage
           persistentVolumeClaim:
