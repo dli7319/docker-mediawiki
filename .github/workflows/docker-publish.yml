@@ -115,7 +115,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           user: ${{ github.actor }}
           container: docker-mediawiki
-          dry-run: true # Dry-run first, then change to `false`
+          dry-run: false
           keep-younger-than: 7 # days
           keep-last: 2
           prune-untagged: true
