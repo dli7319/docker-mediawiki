@@ -1,9 +1,9 @@
-FROM public.ecr.aws/docker/library/mediawiki:1.40
+FROM public.ecr.aws/docker/library/mediawiki:1.41
 
 RUN a2enmod remoteip
 RUN apt update && apt install -y libzip-dev zip unzip && rm -rf /var/lib/apt/lists/* && docker-php-ext-install zip
 
-ENV MW_VER=REL1_40
+ENV MW_VER=REL1_41
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
