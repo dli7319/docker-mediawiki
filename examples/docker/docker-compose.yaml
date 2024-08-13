@@ -1,0 +1,31 @@
+services:
+  wiki:
+    image: ghcr.io/dli7319/docker-mediawiki:main
+    restart: unless-stopped
+    environment:
+      UPLOAD_LIMIT: 64M
+    volumes:
+      - ./data/wiki/images/:/var/www/html/images/
+      - ./data/wiki/LocalSettings.php:/var/www/html/LocalSettings.php:ro
+      - ./data/wiki/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+      - ./data/wiki/remoteip.conf:/etc/apache2/conf-enabled/remoteip.conf:ro
+    networks:
+      - cloudflared
+      - wiki
+  wiki-db:
+    image: public.ecr.aws/docker/library/mariadb:10.6
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: my_wiki
+      MYSQL_USER: wikiuser
+      MYSQL_PASSWORD: mysqlpassword
+      MYSQL_ROOT_PASSWORD: mysqlrootpassword
+    volumes:
+      - ./data/db:/var/lib/mysql
+    networks:
+      - wiki
+
+networks:
+  wiki:
+  cloudflared:
+    external: true
