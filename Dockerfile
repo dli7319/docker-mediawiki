@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/mediawiki:1.44
+FROM mediawiki:1.44
 
 RUN a2enmod remoteip
 RUN apt-get update && apt-get install -y libzip-dev zip unzip && rm -rf /var/lib/apt/lists/* && docker-php-ext-install zip
@@ -27,10 +27,6 @@ RUN git clone --depth 1 --recurse-submodules \
   /var/www/html/extensions/SimpleMathJax3
 RUN git clone --depth 1 -b ${MW_VER} https://github.com/wikimedia/mediawiki-extensions-Tabs \
   /var/www/html/extensions/Tabs
-RUN git clone --depth 1 -b ${MW_VER} https://github.com/wikimedia/mediawiki-extensions-TemplateStyles \
-  /var/www/html/extensions/TemplateStyles && \
-  cd /var/www/html/extensions/TemplateStyles && \
-  composer install --no-dev
 
 # Styles
 # RUN git clone --depth 1 -b ${MW_VER} https://github.com/wikimedia/mediawiki-skins-MinervaNeue.git \
