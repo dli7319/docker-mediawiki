@@ -14,8 +14,6 @@ RUN git clone --depth 1 -b ${MW_VER} https://github.com/wikimedia/mediawiki-exte
   /var/www/html/extensions/CodeMirror
 RUN git clone --depth 1 -b ${MW_VER} https://github.com/wikimedia/mediawiki-extensions-CSS.git \
   /var/www/html/extensions/CSS
-RUN git clone --depth 1 -b ${MW_VER} https://github.com/wikimedia/mediawiki-extensions-Interwiki.git \
-  /var/www/html/extensions/Interwiki
 RUN git clone --depth 1 https://github.com/dli7319/mediawiki-linebreaks-extension.git \
   /var/www/html/extensions/LineBreaks
 RUN git clone --depth 1 -b ${MW_VER} https://github.com/wikimedia/mediawiki-extensions-Lockdown.git \
